@@ -9,6 +9,10 @@
   <style>
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
 
+    /* ===============================
+       BASE
+    =============================== */
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -16,19 +20,23 @@
     }
 
     :root {
-      --night: #07101f;
-      --night-soft: #0b1930;
-      --night-card: rgba(16, 31, 57, 0.72);
+      --navy: #071326;
+      --navy-soft: #0d1d37;
 
-      --cream: #fff9e9;
       --white: #ffffff;
-      --muted: #a8b8ce;
+      --cream: #fff9eb;
+      --muted: #b1bfd3;
 
-      --gold: #f5c95b;
-      --gold-soft: #ffe49a;
-      --blue: #477ef5;
+      --gold: #f4c556;
+      --gold-soft: #ffe39a;
 
-      --border: rgba(255,255,255,.10);
+      --blue: #4b79ef;
+      --blue-light: #6c96ff;
+
+      --glass: rgba(10, 23, 45, .76);
+      --glass-soft: rgba(255, 255, 255, .07);
+
+      --border: rgba(255, 255, 255, .11);
     }
 
     html,
@@ -39,408 +47,566 @@
 
     body {
       font-family: "DM Sans", sans-serif;
-
-      background:
-        radial-gradient(circle at 15% 18%, rgba(63, 100, 175, .16), transparent 25%),
-        radial-gradient(circle at 85% 70%, rgba(117, 78, 169, .12), transparent 28%),
-        linear-gradient(145deg, #050b15 0%, #071326 45%, #091a32 100%);
-
       color: var(--white);
-
       overflow: hidden;
+      background: #06101f;
     }
 
-    /* =========================
-       ESTRELLAS
-    ========================= */
 
-    .stars,
-    .stars::before,
-    .stars::after {
+    /* ===============================
+       FONDO
+    =============================== */
+
+    .background {
       position: fixed;
       inset: 0;
-      content: "";
-      pointer-events: none;
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(4, 10, 22, .76),
+          rgba(4, 10, 22, .52)
+        ),
+        linear-gradient(
+          180deg,
+          rgba(4, 9, 20, .15),
+          rgba(4, 9, 20, .65)
+        ),
+        url("principito.jpg");
+
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+
       z-index: 0;
     }
 
+
+    /* ===============================
+       ESTRELLAS SUPERPUESTAS
+    =============================== */
+
     .stars {
-      background-image:
-        radial-gradient(circle, rgba(255,255,255,.85) 1px, transparent 1px),
-        radial-gradient(circle, rgba(255,255,255,.55) 1px, transparent 1px);
+      position: fixed;
+      inset: 0;
 
-      background-size: 110px 110px, 180px 180px;
-      background-position: 20px 30px, 70px 90px;
+      pointer-events: none;
+
+      z-index: 1;
+
       opacity: .35;
-      animation: drift 40s linear infinite;
-    }
 
-    .stars::before {
       background-image:
-        radial-gradient(circle, rgba(255,228,154,.9) 1.5px, transparent 1.5px);
+        radial-gradient(circle, white 1px, transparent 1px),
+        radial-gradient(circle, #ffe5a5 1.3px, transparent 1.3px);
 
-      background-size: 240px 240px;
-      background-position: 30px 40px;
+      background-size:
+        145px 145px,
+        220px 220px;
 
-      opacity: .28;
+      background-position:
+        25px 40px,
+        80px 100px;
+
+      animation: starsMove 45s linear infinite;
     }
 
-    .stars::after {
-      background-image:
-        radial-gradient(circle, white 1px, transparent 1px);
-
-      background-size: 310px 310px;
-      background-position: 140px 40px;
-
-      opacity: .20;
-    }
-
-    @keyframes drift {
+    @keyframes starsMove {
       from {
         transform: translateY(0);
       }
 
       to {
-        transform: translateY(-110px);
+        transform: translateY(-145px);
       }
     }
 
-    /* =========================
-       LAYOUT PRINCIPAL
-    ========================= */
 
-    .page {
+    /* ===============================
+       ESTRUCTURA
+    =============================== */
+
+    .app {
       position: relative;
-      z-index: 1;
+      z-index: 2;
 
       width: 100%;
-      max-width: 1280px;
+      max-width: 1400px;
 
       height: 100vh;
 
       margin: auto;
 
       display: grid;
-      grid-template-columns: 380px minmax(0, 1fr);
 
-      gap: 28px;
+      grid-template-columns:
+        minmax(320px, 390px)
+        minmax(0, 1fr);
 
-      padding: 28px;
+      gap: 22px;
+
+      padding: 24px;
     }
 
-    /* =========================
-       COLUMNA IZQUIERDA
-    ========================= */
+
+    /* ===============================
+       PANEL IZQUIERDO
+    =============================== */
 
     .intro {
-      position: relative;
+      height: calc(100vh - 48px);
 
-      height: calc(100vh - 56px);
+      display: flex;
+      flex-direction: column;
 
-      border: 1px solid var(--border);
+      border-radius: 30px;
 
-      border-radius: 34px;
-
-      padding: 42px 34px;
+      padding: 34px;
 
       overflow: hidden;
 
       background:
         linear-gradient(
-          165deg,
-          rgba(255,255,255,.075),
-          rgba(255,255,255,.025)
+          160deg,
+          rgba(8, 21, 43, .78),
+          rgba(7, 16, 32, .88)
         );
 
-      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+
+      backdrop-filter: blur(18px);
 
       box-shadow:
-        0 30px 80px rgba(0,0,0,.30);
+        0 25px 70px rgba(0, 0, 0, .32);
     }
 
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
 
-      padding: 9px 14px;
+    /* ===============================
+       BADGE
+    =============================== */
+
+    .badge {
+      width: fit-content;
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+      padding: 8px 13px;
 
       border-radius: 999px;
 
-      background: rgba(245,201,91,.10);
+      background:
+        rgba(244, 197, 86, .10);
 
-      border: 1px solid rgba(245,201,91,.22);
+      border:
+        1px solid rgba(244, 197, 86, .25);
 
-      color: #ffe8a5;
+      color: #ffe7a9;
 
-      font-size: 13px;
+      font-size: 12px;
 
-      margin-bottom: 26px;
+      font-weight: 600;
+
+      margin-bottom: 25px;
     }
 
     .badge-dot {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
 
       border-radius: 50%;
 
       background: var(--gold);
 
       box-shadow:
-        0 0 14px rgba(245,201,91,.9);
+        0 0 12px rgba(244, 197, 86, .85);
     }
 
+
+    /* ===============================
+       TITULO
+    =============================== */
+
     .intro h1 {
-      font-family: "Playfair Display", serif;
+      font-family:
+        "Playfair Display",
+        serif;
 
-      font-size: 48px;
+      color: var(--cream);
 
-      line-height: 1.05;
+      font-size: clamp(
+        42px,
+        4vw,
+        59px
+      );
+
+      line-height: .98;
 
       letter-spacing: -1.5px;
 
-      margin-bottom: 18px;
-
-      color: var(--cream);
+      margin-bottom: 20px;
     }
 
     .intro h1 span {
+      display: block;
+
       color: var(--gold);
     }
 
     .intro-text {
+      max-width: 315px;
+
       color: var(--muted);
 
-      font-size: 16px;
+      font-size: 15px;
 
-      line-height: 1.7;
-
-      max-width: 310px;
+      line-height: 1.65;
     }
 
-    /* =========================
-       PLANETA
-    ========================= */
+
+    /* ===============================
+       ASTEROIDE
+    =============================== */
 
     .scene {
       position: relative;
 
-      height: 270px;
+      flex: 1;
 
-      margin-top: 42px;
+      min-height: 190px;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      margin: 18px 0 12px;
+    }
+
+    .planet-wrapper {
+      position: relative;
+
+      width: 160px;
+      height: 160px;
+
+      animation:
+        planetFloat 5s
+        ease-in-out infinite;
     }
 
     .planet {
       position: absolute;
 
-      width: 190px;
-      height: 190px;
+      inset: 0;
 
-      border-radius: 50%;
-
-      left: 50%;
-      top: 55%;
-
-      transform: translate(-50%, -50%);
+      border-radius:
+        48% 52% 49% 51%
+        / 53% 46% 54% 47%;
 
       background:
+
         radial-gradient(
-          circle at 30% 25%,
-          #ffe98c 0%,
-          #eab84b 28%,
-          #99702b 65%,
-          #4c321a 100%
+          circle at 30% 22%,
+          rgba(255, 243, 188, .65)
+          0 5%,
+          transparent 6%
+        ),
+
+        radial-gradient(
+          ellipse at 68% 38%,
+          rgba(93, 58, 23, .26)
+          0 9%,
+          transparent 10%
+        ),
+
+        radial-gradient(
+          ellipse at 30% 69%,
+          rgba(89, 55, 21, .20)
+          0 7%,
+          transparent 8%
+        ),
+
+        radial-gradient(
+          circle at 33% 24%,
+          #ffe58d,
+          #dfa843 51%,
+          #7a5023 100%
         );
 
       box-shadow:
-        inset -26px -24px 36px rgba(0,0,0,.30),
-        0 0 65px rgba(245,201,91,.18);
 
-      animation: float 5s ease-in-out infinite;
+        inset
+        -26px
+        -28px
+        30px
+        rgba(29, 16, 6, .28),
+
+        0 20px 55px
+        rgba(244, 197, 86, .18);
     }
+
+
+    /* crateres */
 
     .planet::before {
       content: "";
 
       position: absolute;
 
-      width: 38px;
-      height: 20px;
+      width: 28px;
+      height: 15px;
+
+      left: 30px;
+      top: 50px;
 
       border-radius: 50%;
 
-      background: rgba(88,53,19,.30);
+      background:
+        rgba(86, 54, 24, .20);
 
-      top: 45px;
-      left: 35px;
-
-      transform: rotate(-18deg);
+      transform:
+        rotate(-16deg);
 
       box-shadow:
-        60px 20px 0 -5px rgba(88,53,19,.20),
-        20px 70px 0 -2px rgba(88,53,19,.16);
+
+        63px 23px 0 -4px
+        rgba(86,54,24,.16),
+
+        30px 65px 0 -5px
+        rgba(86,54,24,.13);
     }
+
+
+    /* Rosa integrada */
 
     .rose {
       position: absolute;
 
-      left: 51%;
-      top: 14%;
+      z-index: 3;
 
-      transform: translateX(-50%);
+      left: 50%;
+      top: -27px;
 
-      z-index: 5;
+      transform:
+        translateX(-50%);
 
-      font-size: 33px;
+      font-size: 29px;
 
-      filter: drop-shadow(0 7px 12px rgba(0,0,0,.25));
+      filter:
+        drop-shadow(
+          0 7px 8px
+          rgba(0,0,0,.28)
+        );
 
-      animation: roseMove 3s ease-in-out infinite;
+      animation:
+        roseMove 3s
+        ease-in-out infinite;
     }
 
-    .tiny-star {
+
+    /* tallo */
+
+    .rose::after {
+      content: "";
+
       position: absolute;
 
-      font-size: 19px;
+      left: 50%;
+      top: 25px;
 
-      color: #ffeab1;
+      width: 2px;
+      height: 18px;
 
-      animation: twinkle 2.5s infinite;
+      transform:
+        translateX(-50%);
+
+      background:
+        #4c8c51;
+
+      z-index: -1;
     }
 
-    .s1 {
-      left: 25px;
-      top: 20px;
+
+    /* estrellas laterales */
+
+    .spark {
+      position: absolute;
+
+      color:
+        rgba(255, 229, 168, .80);
+
+      animation:
+        twinkle 2.5s infinite;
     }
 
-    .s2 {
-      right: 30px;
-      top: 65px;
-      animation-delay: .5s;
+    .spark.one {
+      left: 17%;
+      top: 30%;
     }
 
-    .s3 {
-      right: 55px;
-      bottom: 10px;
-      animation-delay: 1s;
+    .spark.two {
+      right: 15%;
+      top: 43%;
+
+      animation-delay: .8s;
     }
 
-    @keyframes float {
-      0%, 100% {
-        transform: translate(-50%, -50%) translateY(0);
+    .spark.three {
+      left: 25%;
+      bottom: 13%;
+
+      animation-delay: 1.3s;
+    }
+
+    @keyframes planetFloat {
+      0%,
+      100% {
+        transform:
+          translateY(0)
+          rotate(-1deg);
       }
 
       50% {
-        transform: translate(-50%, -50%) translateY(-10px);
+        transform:
+          translateY(-8px)
+          rotate(1deg);
       }
     }
 
     @keyframes roseMove {
-      0%, 100% {
-        transform: translateX(-50%) rotate(-2deg);
+      0%,
+      100% {
+        transform:
+          translateX(-50%)
+          rotate(-3deg);
       }
 
       50% {
-        transform: translateX(-50%) rotate(3deg);
+        transform:
+          translateX(-50%)
+          rotate(3deg);
       }
     }
 
     @keyframes twinkle {
-      0%, 100% {
-        opacity: .30;
+      0%,
+      100% {
+        opacity: .35;
         transform: scale(.8);
       }
 
       50% {
         opacity: 1;
-        transform: scale(1.2);
+        transform: scale(1.15);
       }
     }
 
-    /* =========================
-       CITA
-    ========================= */
+
+    /* ===============================
+       FRASE
+    =============================== */
 
     .quote {
-      margin-top: 22px;
+      flex-shrink: 0;
 
-      padding-top: 24px;
+      padding: 17px 18px;
 
-      border-top: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
 
-      color: #d7dfeb;
+      background:
+        rgba(255,255,255,.05);
 
-      font-family: "Playfair Display", serif;
+      border:
+        1px solid rgba(255,255,255,.08);
+    }
+
+    .quote p {
+      font-family:
+        "Playfair Display",
+        serif;
+
+      color: #fff8e7;
 
       font-size: 17px;
 
-      line-height: 1.55;
+      line-height: 1.45;
     }
 
     .quote span {
       display: block;
 
-      margin-top: 10px;
+      margin-top: 9px;
 
-      font-family: "DM Sans", sans-serif;
+      color: #8292a9;
 
-      font-size: 12px;
+      font-size: 10px;
 
-      color: #8392a8;
+      letter-spacing: 1.8px;
 
       text-transform: uppercase;
-
-      letter-spacing: 1.6px;
     }
 
-    /* =========================
-       CHAT CARD
-    ========================= */
+
+    /* ===============================
+       CONTENEDOR CHAT
+    =============================== */
 
     .chat-card {
-      height: calc(100vh - 56px);
+      height: calc(100vh - 48px);
 
       display: flex;
       flex-direction: column;
 
       min-height: 0;
 
-      border-radius: 34px;
-
       overflow: hidden;
 
-      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 30px;
+
+      border: 1px solid var(--border);
 
       background:
         linear-gradient(
           180deg,
-          rgba(14,31,58,.88),
-          rgba(10,23,43,.94)
+          rgba(9, 24, 47, 0.42),
+          rgba(7, 17, 34, 0.52)
         );
 
-      backdrop-filter: blur(22px);
+      backdrop-filter: blur(12px);
 
       box-shadow:
-        0 35px 100px rgba(0,0,0,.34);
+        0 25px 80px rgba(0,0,0,.34);
     }
 
-    /* =========================
-       HEADER DEL CHAT
-    ========================= */
+
+    /* ===============================
+       HEADER CHAT
+    =============================== */
 
     .chat-header {
       flex-shrink: 0;
 
-      padding: 22px 26px;
-
       display: flex;
+
+      justify-content:
+        space-between;
 
       align-items: center;
 
-      justify-content: space-between;
+      gap: 12px;
+
+      padding: 19px 22px;
 
       border-bottom:
-        1px solid rgba(255,255,255,.07);
+        1px solid
+        rgba(255,255,255,.07);
+
+      background:
+        rgba(255,255,255,.025);
     }
 
     .assistant-info {
@@ -448,49 +614,51 @@
 
       align-items: center;
 
-      gap: 14px;
+      gap: 13px;
     }
 
     .avatar {
-      width: 48px;
-      height: 48px;
-
-      border-radius: 15px;
+      width: 46px;
+      height: 46px;
 
       display: grid;
 
       place-items: center;
 
+      border-radius: 15px;
+
       background:
+
         linear-gradient(
           145deg,
-          #ffe79b,
-          #d5a52f
+          #ffe797,
+          #d2a038
         );
 
-      color: #33240c;
+      color: #382807;
 
-      font-size: 23px;
+      font-size: 21px;
 
       box-shadow:
-        0 10px 22px rgba(245,201,91,.18);
+        0 9px 22px
+        rgba(244,197,86,.20);
     }
 
     .assistant-name {
       font-weight: 700;
 
-      font-size: 16px;
+      font-size: 15px;
 
       margin-bottom: 4px;
     }
 
     .assistant-status {
-      font-size: 13px;
+      color: #94a6bf;
 
-      color: #95a7bf;
+      font-size: 12px;
     }
 
-    .green-dot {
+    .status-dot {
       display: inline-block;
 
       width: 7px;
@@ -500,29 +668,34 @@
 
       border-radius: 50%;
 
-      background: #61e590;
+      background: #60df8b;
 
       box-shadow:
-        0 0 10px rgba(97,229,144,.7);
+        0 0 9px
+        rgba(96,223,139,.75);
     }
 
     .rag-pill {
-      padding: 8px 13px;
+      padding: 8px 12px;
 
       border-radius: 999px;
 
-      background: rgba(71,126,245,.10);
+      background:
+        rgba(80,124,246,.10);
 
-      border: 1px solid rgba(71,126,245,.20);
+      border:
+        1px solid
+        rgba(80,124,246,.20);
 
-      color: #b7cbff;
+      color: #bfd0ff;
 
-      font-size: 12px;
+      font-size: 11px;
     }
 
-    /* =========================
-       CHAT CON SCROLL INTERNO
-    ========================= */
+
+    /* ===============================
+       AREA MENSAJES
+    =============================== */
 
     #chat {
       flex: 1;
@@ -532,13 +705,14 @@
       overflow-y: auto;
       overflow-x: hidden;
 
-      padding: 30px 30px 20px;
+      padding:
+        25px 24px 15px;
 
       scroll-behavior: smooth;
     }
 
     #chat::-webkit-scrollbar {
-      width: 8px;
+      width: 7px;
     }
 
     #chat::-webkit-scrollbar-track {
@@ -546,148 +720,178 @@
     }
 
     #chat::-webkit-scrollbar-thumb {
-      background: rgba(255,255,255,.15);
+      background:
+        rgba(255,255,255,.14);
 
-      border-radius: 20px;
+      border-radius: 999px;
     }
 
-    #chat::-webkit-scrollbar-thumb:hover {
-      background: rgba(255,255,255,.25);
-    }
-
-    .row {
+    .message-row {
       display: flex;
-
-      margin-bottom: 17px;
-
-      animation: messageIn .3s ease;
+      width: 100%;
+      margin-bottom: 15px;
     }
 
-    .row.bot {
+    .message-row.bot {
       justify-content: flex-start;
     }
 
-    .row.user {
+    .message-row.user {
       justify-content: flex-end;
     }
 
-    .bubble {
-      max-width: 74%;
-
-      padding: 14px 17px;
-
-      font-size: 15px;
-
-      line-height: 1.6;
-
-      white-space: pre-wrap;
-
-      word-break: break-word;
-    }
-
-    .bubble.bot {
-      border-radius:
-        7px 20px 20px 20px;
-
-      background:
-        rgba(255,255,255,.075);
-
-      border:
-        1px solid rgba(255,255,255,.07);
-
-      color: #e8eef7;
-    }
-
-    .bubble.user {
-      border-radius:
-        20px 7px 20px 20px;
-
-      background:
-        linear-gradient(
-          135deg,
-          #426fe9,
-          #5b8bf7
-        );
-
-      color: white;
-
-      box-shadow:
-        0 12px 30px rgba(48,94,210,.18);
-    }
-
-    @keyframes messageIn {
+    @keyframes messageAppear {
       from {
         opacity: 0;
-        transform: translateY(10px);
+
+        transform:
+          translateY(7px);
       }
 
       to {
         opacity: 1;
-        transform: translateY(0);
+
+        transform:
+          translateY(0);
       }
     }
 
-    /* =========================
-       SUGERENCIAS
-    ========================= */
+    .message {
+      width: auto;
+      min-width: 0;
+      max-width: 72%;
 
-    .suggestions {
+      padding: 14px 18px;
+
+      font-size: 15px;
+      line-height: 1.55;
+
+      white-space: pre-wrap;
+      word-break: normal;
+      overflow-wrap: break-word;
+
+      text-align: left;
+    }
+
+    .message.bot {
+      width: fit-content;
+      max-width: 72%;
+
+      color: #edf3fc;
+
+      border-radius: 8px 20px 20px 20px;
+
+      background: rgba(255,255,255,.075);
+
+      border: 1px solid rgba(255,255,255,.07);
+    }
+
+    .message.user {
+      width: fit-content;
+      max-width: 68%;
+
+      color: white;
+
+      border-radius: 20px 8px 20px 20px;
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--blue),
+          var(--blue-light)
+        );
+
+      box-shadow:
+        0 11px 27px rgba(55,97,212,.18);
+    }
+
+
+    /* ===============================
+       SUGERENCIAS
+    =============================== */
+
+    .suggestions-area {
       flex-shrink: 0;
 
-      padding: 0 30px 18px;
+      padding:
+        0 22px 14px;
+    }
 
+    .suggestions-title {
+      margin-bottom: 8px;
+
+      color: #7f91aa;
+
+      font-size: 10px;
+
+      letter-spacing: 1.3px;
+
+      text-transform: uppercase;
+    }
+
+    .suggestions {
       display: flex;
 
-      gap: 8px;
-
       flex-wrap: wrap;
+
+      gap: 7px;
     }
 
     .suggestion {
-      border: 1px solid rgba(255,255,255,.09);
-
-      color: #b5c4d9;
-
-      background: rgba(255,255,255,.035);
-
-      padding: 9px 12px;
+      padding:
+        8px 11px;
 
       border-radius: 999px;
 
-      font-size: 12px;
+      border:
+        1px solid
+        rgba(255,255,255,.09);
+
+      background:
+        rgba(255,255,255,.035);
+
+      color: #becbdd;
+
+      font-family: inherit;
+
+      font-size: 11px;
 
       cursor: pointer;
 
-      transition: .2s ease;
+      transition:
+        .2s ease;
     }
 
     .suggestion:hover {
-      background:
-        rgba(245,201,91,.10);
+      color: #ffe5a0;
 
       border-color:
-        rgba(245,201,91,.25);
+        rgba(244,197,86,.25);
 
-      color: #ffe499;
+      background:
+        rgba(244,197,86,.08);
 
       transform:
         translateY(-1px);
     }
 
-    /* =========================
+
+    /* ===============================
        INPUT
-    ========================= */
+    =============================== */
 
     .composer {
       flex-shrink: 0;
 
-      padding: 18px 22px 22px;
+      padding:
+        15px 19px 18px;
 
       border-top:
-        1px solid rgba(255,255,255,.07);
+        1px solid
+        rgba(255,255,255,.07);
 
       background:
-        rgba(4,13,27,.25);
+        rgba(3,10,21,.18);
     }
 
     .input-box {
@@ -695,27 +899,31 @@
 
       align-items: center;
 
-      gap: 10px;
+      gap: 8px;
 
-      padding: 7px 7px 7px 18px;
+      padding:
+        6px 6px 6px 15px;
 
-      border-radius: 20px;
+      border-radius: 19px;
 
       border:
-        1px solid rgba(255,255,255,.11);
+        1px solid
+        rgba(255,255,255,.11);
 
       background:
         rgba(255,255,255,.055);
 
-      transition: .2s ease;
+      transition:
+        .2s ease;
     }
 
     .input-box:focus-within {
       border-color:
-        rgba(245,201,91,.40);
+        rgba(244,197,86,.35);
 
       box-shadow:
-        0 0 0 4px rgba(245,201,91,.05);
+        0 0 0 3px
+        rgba(244,197,86,.05);
     }
 
     #pregunta {
@@ -729,26 +937,26 @@
 
       background: transparent;
 
-      padding: 11px 0;
-
       color: white;
+
+      padding: 10px 0;
 
       font-family: inherit;
 
-      font-size: 15px;
+      font-size: 14px;
     }
 
     #pregunta::placeholder {
-      color: #798ba3;
+      color: #8495ad;
     }
 
     #send {
-      width: 47px;
-      height: 47px;
-
-      border-radius: 15px;
+      width: 45px;
+      height: 45px;
 
       border: none;
+
+      border-radius: 14px;
 
       cursor: pointer;
 
@@ -757,28 +965,28 @@
       place-items: center;
 
       background:
+
         linear-gradient(
           145deg,
-          #ffe17f,
-          #e3af37
+          #ffe48c,
+          #daa837
         );
 
-      color: #302208;
+      color: #332407;
 
-      font-size: 20px;
-
-      transition: .2s ease;
+      font-size: 19px;
 
       box-shadow:
-        0 10px 24px rgba(245,201,91,.20);
+        0 8px 20px
+        rgba(244,197,86,.20);
+
+      transition:
+        .2s ease;
     }
 
     #send:hover {
       transform:
-        translateY(-2px) scale(1.02);
-
-      box-shadow:
-        0 13px 28px rgba(245,201,91,.28);
+        translateY(-1px);
     }
 
     #send:disabled {
@@ -789,26 +997,27 @@
       transform: none;
     }
 
-    .small-note {
+    .note {
       text-align: center;
 
-      color: #697b93;
+      margin-top: 8px;
 
-      font-size: 11px;
+      color: #70819a;
 
-      margin-top: 11px;
+      font-size: 9px;
     }
 
-    /* =========================
+
+    /* ===============================
        TYPING
-    ========================= */
+    =============================== */
 
     .typing {
       display: flex;
 
-      gap: 5px;
-
       align-items: center;
+
+      gap: 5px;
 
       height: 17px;
     }
@@ -819,511 +1028,972 @@
 
       border-radius: 50%;
 
-      background: #bdc9d9;
+      background: #d3deec;
 
-      animation: typing 1.1s infinite;
+      animation:
+        typingAnimation
+        1.1s infinite;
     }
 
     .typing span:nth-child(2) {
-      animation-delay: .15s;
+      animation-delay:
+        .15s;
     }
 
     .typing span:nth-child(3) {
-      animation-delay: .30s;
+      animation-delay:
+        .30s;
     }
 
-    @keyframes typing {
-      0%, 80%, 100% {
-        opacity: .35;
-        transform: translateY(0);
+    @keyframes typingAnimation {
+
+      0%,
+      80%,
+      100% {
+        opacity: .3;
+
+        transform:
+          translateY(0);
       }
 
       40% {
         opacity: 1;
-        transform: translateY(-4px);
+
+        transform:
+          translateY(-4px);
       }
     }
 
-    /* =========================
-       RESPONSIVE
-    ========================= */
 
-    @media(max-width: 900px) {
+    /* ===============================
+       TABLET
+    =============================== */
+
+    @media(max-width: 950px) {
 
       body {
         overflow: auto;
       }
 
-      .page {
+      .app {
         height: auto;
+
         min-height: 100vh;
 
-        grid-template-columns: 1fr;
+        grid-template-columns:
+          1fr;
 
-        padding: 20px;
+        padding: 14px;
+
+        gap: 14px;
       }
+
+
+      /*
+      Portada compacta
+      */
 
       .intro {
         height: auto;
-        min-height: auto;
+
+        min-height: 0;
+
+        padding: 24px;
+
+        border-radius: 24px;
       }
+
+      .badge {
+        margin-bottom: 15px;
+      }
+
+      .intro h1 {
+        font-size: 40px;
+
+        line-height: 1;
+
+        margin-bottom: 12px;
+      }
+
+      .intro h1 span {
+        display: inline;
+      }
+
+      .intro-text {
+        max-width: 600px;
+
+        font-size: 14px;
+      }
+
+
+      /*
+      En tablet no necesitamos
+      un planeta gigante
+      */
+
+      .scene {
+        height: 150px;
+
+        min-height: 150px;
+
+        margin:
+          14px 0 8px;
+      }
+
+      .planet-wrapper {
+        width: 115px;
+        height: 115px;
+      }
+
+      .rose {
+        font-size: 25px;
+        top: -24px;
+      }
+
+
+      .quote {
+        max-width: 460px;
+
+        padding: 13px 15px;
+      }
+
+      .quote p {
+        font-size: 15px;
+      }
+
+
+      /*
+      Chat
+      */
+
+      .chat-card {
+        height: 75vh;
+
+        min-height: 590px;
+
+        border-radius: 24px;
+      }
+
+    }
+
+
+    /* ===============================
+       CELULAR
+    =============================== */
+
+    @media(max-width: 600px) {
+
+      .background {
+        background-position:
+          center;
+      }
+
+      .app {
+        padding: 8px;
+
+        gap: 9px;
+      }
+
+
+      /*
+      En celular la parte de arriba
+      se vuelve una intro horizontal
+      y compacta
+      */
+
+      .intro {
+        padding:
+          19px 18px;
+
+        border-radius: 20px;
+      }
+
+      .badge {
+        padding: 6px 9px;
+
+        margin-bottom: 12px;
+
+        font-size: 9px;
+      }
+
+      .intro h1 {
+        max-width: 330px;
+
+        font-size: 31px;
+
+        line-height: .98;
+
+        margin-bottom: 10px;
+      }
+
+      .intro-text {
+        font-size: 12px;
+
+        line-height: 1.45;
+      }
+
+
+      /*
+      Quitamos el planeta en móvil.
+      El fondo ya proporciona
+      la parte visual.
+      */
 
       .scene {
         display: none;
       }
 
+
+      /*
+      Cita mucho más pequeña
+      */
+
       .quote {
-        display: none;
+        margin-top: 15px;
+
+        padding:
+          10px 12px;
+
+        border-radius: 13px;
       }
 
-      .intro {
-        padding: 27px;
+      .quote p {
+        font-size: 13px;
       }
 
-      .intro h1 {
-        font-size: 39px;
+      .quote span {
+        margin-top: 5px;
+
+        font-size: 8px;
       }
 
-      .intro-text {
-        max-width: none;
-      }
+
+      /*
+      Chat ocupa casi toda la pantalla
+      */
 
       .chat-card {
-        height: 75vh;
-        min-height: 600px;
-      }
-    }
+        height: 76vh;
 
-    @media(max-width: 560px) {
+        min-height: 540px;
 
-      .page {
-        padding: 10px;
-        gap: 12px;
+        border-radius: 20px;
       }
 
-      .intro,
-      .chat-card {
-        border-radius: 24px;
+      .chat-header {
+        padding:
+          13px 14px;
       }
 
-      .intro {
-        padding: 24px;
+      .avatar {
+        width: 39px;
+        height: 39px;
+
+        border-radius: 12px;
+
+        font-size: 18px;
       }
 
-      .intro h1 {
-        font-size: 33px;
+      .assistant-name {
+        font-size: 13px;
+      }
+
+      .assistant-status {
+        font-size: 10px;
       }
 
       .rag-pill {
         display: none;
       }
 
+
       #chat {
         padding:
-          22px 15px 15px;
+          16px 13px 10px;
+      }
+
+      .message {
+        max-width: 88%;
+
+        padding:
+          11px 13px;
+
+        font-size: 12px;
+
+        line-height: 1.5;
+      }
+
+
+      /*
+      sugerencias desplazables
+      horizontalmente
+      */
+
+      .suggestions-area {
+        padding:
+          0 13px 10px;
+
+        overflow: hidden;
       }
 
       .suggestions {
-        padding:
-          0 15px 15px;
+        flex-wrap: nowrap;
+
+        overflow-x: auto;
+
+        padding-bottom: 3px;
       }
 
-      .bubble {
-        max-width: 88%;
+      .suggestions::-webkit-scrollbar {
+        display: none;
       }
+
+      .suggestion {
+        flex: 0 0 auto;
+
+        white-space: nowrap;
+
+        font-size: 10px;
+
+        padding:
+          7px 10px;
+      }
+
 
       .composer {
         padding:
-          14px;
+          10px;
       }
 
-      .chat-header {
+      .input-box {
+        border-radius: 16px;
+
         padding:
-          17px;
+          5px 5px 5px 12px;
       }
+
+      #pregunta {
+        font-size: 12px;
+
+        padding:
+          8px 0;
+      }
+
+      #send {
+        width: 40px;
+        height: 40px;
+
+        border-radius: 12px;
+      }
+
+      .note {
+        font-size: 8px;
+      }
+
     }
 
   </style>
 </head>
 
+
 <body>
 
-<div class="stars"></div>
+  <div class="background"></div>
+  <div class="stars"></div>
 
-<main class="page">
 
-  <!-- COLUMNA IZQUIERDA -->
+  <main class="app">
 
-  <section class="intro">
 
-    <div class="badge">
-      <span class="badge-dot"></span>
-      RAG · Inteligencia Artificial
-    </div>
+    <!-- ==========================
+         PORTADA
+    =========================== -->
 
-    <h1>
-      Conversa con
-      <span>El Principito</span>
-    </h1>
+    <section class="intro">
 
-    <p class="intro-text">
-      Explora personajes, lugares, enseñanzas y momentos
-      de la historia mediante un asistente que consulta
-      directamente el contenido del libro.
-    </p>
+      <div class="badge">
 
-    <div class="scene">
+        <span class="badge-dot"></span>
 
-      <span class="tiny-star s1">✦</span>
-      <span class="tiny-star s2">✧</span>
-      <span class="tiny-star s3">✦</span>
+        Experiencia conversacional
 
-      <div class="rose">🌹</div>
+      </div>
 
-      <div class="planet"></div>
 
-    </div>
+      <h1>
 
-    <div class="quote">
-      “Lo esencial es invisible a los ojos.”
+        Descubre
 
-      <span>
-        El Principito
-      </span>
-    </div>
+        <span>
+          El Principito
+        </span>
 
-  </section>
+      </h1>
 
-  <!-- CHAT -->
 
-  <section class="chat-card">
+      <p class="intro-text">
 
-    <header class="chat-header">
+        Explora sus personajes, emociones,
+        viajes y enseñanzas conversando con
+        un asistente que conoce la historia.
 
-      <div class="assistant-info">
+      </p>
 
-        <div class="avatar">
+
+      <div class="scene">
+
+        <span class="spark one">
           ✦
-        </div>
+        </span>
 
-        <div>
+        <span class="spark two">
+          ✧
+        </span>
 
-          <div class="assistant-name">
-            Asistente del Principito
+        <span class="spark three">
+          ✦
+        </span>
+
+
+        <div class="planet-wrapper">
+
+          <div class="rose">
+            🌹
           </div>
 
-          <div class="assistant-status">
-            <span class="green-dot"></span>
-            Listo para conversar
+          <div class="planet"></div>
+
+        </div>
+
+      </div>
+
+
+      <div class="quote">
+
+        <p>
+          “Lo esencial es invisible
+          a los ojos.”
+        </p>
+
+        <span>
+          El Principito
+        </span>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ==========================
+         CHAT
+    =========================== -->
+
+    <section class="chat-card">
+
+
+      <header class="chat-header">
+
+        <div class="assistant-info">
+
+
+          <div class="avatar">
+            ✦
+          </div>
+
+
+          <div>
+
+            <div class="assistant-name">
+              Asistente del Principito
+            </div>
+
+            <div class="assistant-status">
+
+              <span class="status-dot"></span>
+
+              Listo para conversar
+
+            </div>
+
           </div>
 
         </div>
 
-      </div>
 
-      <div class="rag-pill">
-        ✦ Conectado al libro
-      </div>
+        <div class="rag-pill">
+          ✦ Conectado al libro
+        </div>
 
-    </header>
+      </header>
 
-    <div id="chat">
 
-      <div class="row bot">
 
-        <div class="bubble bot">
-          Hola ✨ Soy tu asistente de El Principito.
-          Puedes preguntarme sobre sus personajes, aventuras,
-          enseñanzas o cualquier momento del libro.
+      <!-- MENSAJES -->
+
+      <div id="chat">
+
+        <div class="message-row bot">
+          <div class="message bot">¡Hola! ✨ Soy tu asistente de El Principito. Podemos hablar sobre la rosa, el zorro, los baobabs, sus viajes o las enseñanzas que fue descubriendo. ¿Qué te gustaría saber?
+          </div>
         </div>
 
       </div>
 
-    </div>
 
-    <div class="suggestions">
 
-      <button
-        class="suggestion"
-        onclick="usarSugerencia('¿Qué significa domesticar según el zorro?')"
-      >
-        🦊 ¿Qué significa domesticar?
-      </button>
+      <!-- SUGERENCIAS -->
 
-      <button
-        class="suggestion"
-        onclick="usarSugerencia('¿Cuál era el planeta del Principito?')"
-      >
-        🪐 ¿Cuál era su planeta?
-      </button>
+      <div class="suggestions-area">
 
-      <button
-        class="suggestion"
-        onclick="usarSugerencia('¿Qué representan los baobabs?')"
-      >
-        🌱 Háblame de los baobabs
-      </button>
+        <div class="suggestions-title">
+          Puedes preguntarme
+        </div>
 
-      <button
-        class="suggestion"
-        onclick="usarSugerencia('¿Qué relación tenía el Principito con su rosa?')"
-      >
-        🌹 El Principito y su rosa
-      </button>
 
-    </div>
+        <div class="suggestions">
 
-    <div class="composer">
 
-      <div class="input-box">
+          <button
+            class="suggestion"
+            onclick="usarSugerencia(
+              '¿Qué aprendió el Principito del zorro?'
+            )"
+          >
 
-        <input
-          id="pregunta"
-          type="text"
-          autocomplete="off"
-          placeholder="Pregúntame algo sobre El Principito..."
-        >
+            🦊 ¿Qué aprendió del zorro?
 
-        <button
-          id="send"
-          onclick="enviarPregunta()"
-          aria-label="Enviar"
-        >
-          ➜
-        </button>
+          </button>
+
+
+          <button
+            class="suggestion"
+            onclick="usarSugerencia(
+              '¿Por qué era tan importante la rosa para el Principito?'
+            )"
+          >
+
+            🌹 Cuéntame sobre la rosa
+
+          </button>
+
+
+          <button
+            class="suggestion"
+            onclick="usarSugerencia(
+              '¿Por qué eran peligrosos los baobabs?'
+            )"
+          >
+
+            🌱 ¿Por qué eran peligrosos?
+
+          </button>
+
+
+          <button
+            class="suggestion"
+            onclick="usarSugerencia(
+              '¿Cómo era el planeta del Principito?'
+            )"
+          >
+
+            🪐 ¿Cómo era su planeta?
+
+          </button>
+
+
+        </div>
 
       </div>
 
-      <div class="small-note">
-        Las respuestas se generan consultando el contenido almacenado en el RAG.
+
+
+      <!-- INPUT -->
+
+      <div class="composer">
+
+
+        <div class="input-box">
+
+
+          <input
+            id="pregunta"
+            type="text"
+            autocomplete="off"
+            placeholder="Pregúntame algo sobre la historia..."
+          >
+
+
+          <button
+            id="send"
+            onclick="enviarPregunta()"
+            aria-label="Enviar"
+          >
+
+            ➜
+
+          </button>
+
+
+        </div>
+
+
+        <div class="note">
+
+          Las respuestas se construyen
+          utilizando el contenido de
+          El Principito.
+
+        </div>
+
+
       </div>
 
-    </div>
 
-  </section>
+    </section>
 
-</main>
-
-<script>
-
-  const WEBHOOK_URL =
-    "https://anachape.app.n8n.cloud/webhook/principito";
+  </main>
 
 
-  const chat =
-    document.getElementById("chat");
 
-  const input =
-    document.getElementById("pregunta");
+  <script>
 
-  const send =
-    document.getElementById("send");
+    /* ==========================
+       WEBHOOK N8N
+    =========================== */
 
-
-  function scrollAbajo() {
-
-    chat.scrollTop =
-      chat.scrollHeight;
-
-  }
+    const WEBHOOK_URL =
+      "https://anachape.app.n8n.cloud/webhook/principito";
 
 
-  function crearMensaje(tipo, texto) {
-
-    const row =
-      document.createElement("div");
-
-    row.className =
-      `row ${tipo}`;
+    const chat =
+      document.getElementById("chat");
 
 
-    const bubble =
-      document.createElement("div");
-
-    bubble.className =
-      `bubble ${tipo}`;
-
-    bubble.textContent =
-      texto;
+    const input =
+      document.getElementById("pregunta");
 
 
-    row.appendChild(bubble);
-
-    chat.appendChild(row);
-
-    scrollAbajo();
-
-    return bubble;
-
-  }
+    const send =
+      document.getElementById("send");
 
 
-  function crearTyping() {
 
-    const row =
-      document.createElement("div");
+    /* ==========================
+       SCROLL INTERNO
+    =========================== */
 
-    row.className =
-      "row bot";
+    function scrollAbajo() {
 
+      chat.scrollTop =
+        chat.scrollHeight;
 
-    const bubble =
-      document.createElement("div");
-
-    bubble.className =
-      "bubble bot";
-
-
-    bubble.innerHTML = `
-      <div class="typing">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    `;
-
-
-    row.appendChild(bubble);
-
-    chat.appendChild(row);
-
-    scrollAbajo();
-
-    return bubble;
-
-  }
-
-
-  function usarSugerencia(texto) {
-
-    input.value =
-      texto;
-
-    input.focus();
-
-  }
-
-
-  async function enviarPregunta() {
-
-    const pregunta =
-      input.value.trim();
-
-
-    if (!pregunta) {
-      return;
     }
 
 
-    crearMensaje(
-      "user",
-      pregunta
-    );
 
+    /* ==========================
+       CREAR MENSAJE
+    =========================== */
 
-    input.value = "";
+    function crearMensaje(
+      tipo,
+      texto
+    ) {
 
-    send.disabled = true;
-
-
-    const typing =
-      crearTyping();
-
-
-    try {
-
-      const response =
-        await fetch(
-          WEBHOOK_URL,
-          {
-            method: "POST",
-
-            headers: {
-              "Content-Type":
-                "application/json"
-            },
-
-            body:
-              JSON.stringify({
-                pregunta
-              })
-          }
+      const row =
+        document.createElement(
+          "div"
         );
 
 
-      if (!response.ok) {
+      row.className =
+        `message-row ${tipo}`;
 
-        throw new Error(
-          "Error HTTP: " +
-          response.status
+
+
+      const bubble =
+        document.createElement(
+          "div"
         );
 
-      }
+
+      bubble.className =
+        `message ${tipo}`;
 
 
-      const data =
-        await response.json();
+      bubble.textContent =
+        texto;
 
 
-      if (
-        !data ||
-        !data.respuesta
-      ) {
 
-        throw new Error(
-          "Respuesta inválida"
-        );
-
-      }
+      row.appendChild(
+        bubble
+      );
 
 
-      typing.textContent =
-        data.respuesta;
+      chat.appendChild(
+        row
+      );
 
-    }
-
-    catch (error) {
-
-      console.error(error);
-
-
-      typing.textContent =
-        "No pude conectarme con el asistente. Intenta nuevamente en unos segundos.";
-
-    }
-
-    finally {
-
-      send.disabled = false;
-
-      input.focus();
 
       scrollAbajo();
 
+
+      return bubble;
+
     }
 
-  }
 
 
-  input.addEventListener(
-    "keydown",
-    function(event) {
+    /* ==========================
+       ANIMACION ESCRIBIENDO
+    =========================== */
 
-      if (
-        event.key === "Enter" &&
-        !event.shiftKey
-      ) {
+    function crearTyping() {
 
-        event.preventDefault();
 
-        enviarPregunta();
+      const row =
+        document.createElement(
+          "div"
+        );
+
+
+      row.className =
+        "message-row bot";
+
+
+
+      const bubble =
+        document.createElement(
+          "div"
+        );
+
+
+      bubble.className =
+        "message bot";
+
+
+      bubble.innerHTML = `
+
+        <div class="typing">
+
+          <span></span>
+          <span></span>
+          <span></span>
+
+        </div>
+
+      `;
+
+
+      row.appendChild(
+        bubble
+      );
+
+
+      chat.appendChild(
+        row
+      );
+
+
+      scrollAbajo();
+
+
+      return bubble;
+
+    }
+
+
+
+    /* ==========================
+       SUGERENCIAS
+    =========================== */
+
+    function usarSugerencia(
+      texto
+    ) {
+
+      input.value =
+        texto;
+
+
+      input.focus();
+
+    }
+
+
+
+    /* ==========================
+       ENVIAR PREGUNTA
+    =========================== */
+
+    async function enviarPregunta() {
+
+
+      const pregunta =
+        input.value.trim();
+
+
+      if (!pregunta) {
+        return;
+      }
+
+
+
+      crearMensaje(
+        "user",
+        pregunta
+      );
+
+
+
+      input.value =
+        "";
+
+
+      send.disabled =
+        true;
+
+
+
+      const typing =
+        crearTyping();
+
+
+
+      try {
+
+
+        const response =
+          await fetch(
+
+            WEBHOOK_URL,
+
+            {
+
+              method:
+                "POST",
+
+              headers: {
+
+                "Content-Type":
+                  "application/json"
+
+              },
+
+              body:
+                JSON.stringify({
+
+                  pregunta:
+                    pregunta
+
+                })
+
+            }
+
+          );
+
+
+
+        if (!response.ok) {
+
+          throw new Error(
+            "Error HTTP: " +
+            response.status
+          );
+
+        }
+
+
+
+        const data =
+          await response.json();
+
+
+
+        if (
+          !data ||
+          !data.respuesta
+        ) {
+
+          throw new Error(
+            "Respuesta inválida"
+          );
+
+        }
+
+
+
+        typing.textContent =
+          data.respuesta;
+
+
+      }
+
+      catch (error) {
+
+
+        console.error(
+          error
+        );
+
+
+        typing.textContent =
+          "No pude conectarme con el asistente. Intenta nuevamente en unos segundos.";
+
+
+      }
+
+      finally {
+
+
+        send.disabled =
+          false;
+
+
+        input.focus();
+
+
+        scrollAbajo();
 
       }
 
     }
-  );
 
-</script>
+
+
+    /* ==========================
+       ENTER PARA ENVIAR
+    =========================== */
+
+    input.addEventListener(
+
+      "keydown",
+
+      function(event) {
+
+
+        if (
+          event.key === "Enter" &&
+          !event.shiftKey
+        ) {
+
+
+          event.preventDefault();
+
+
+          enviarPregunta();
+
+        }
+
+      }
+
+    );
+
+  </script>
+
 
 </body>
+
 </html>
